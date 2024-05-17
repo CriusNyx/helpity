@@ -25,13 +25,13 @@ namespace Helpity
     /// <summary>
     /// Comparison function.
     /// </summary>
-    public readonly Comparer<T> comparer;
+    public readonly Func<T, T, int> comparer;
 
     public DeltaList(
       IReadOnlyList<T> elements,
       IReadOnlyList<T> elementsAdded,
       IReadOnlyList<T> elementsRemoved,
-      Comparer<T> comparer
+      Func<T, T, int> comparer
     )
     {
       this.elements = elements;
@@ -40,7 +40,12 @@ namespace Helpity
       this.comparer = comparer;
     }
 
-    public static DeltaList<T> Create(IEnumerable<T> elements, Comparer<T> comparer = null)
+    public static DeltaList<T> Create(Func<T, T, int> comparer = null)
+    {
+      return Create(new T[0], comparer);
+    }
+
+    public static DeltaList<T> Create(IEnumerable<T> elements, Func<T, T, int> comparer = null)
     {
       var arr = elements.ToArray();
       Array.Sort(arr);
@@ -49,7 +54,7 @@ namespace Helpity
         new ReadOnlyCollection<T>(arr),
         new ReadOnlyCollection<T>(new T[0]),
         new ReadOnlyCollection<T>(new T[0]),
-        comparer ?? Comparer<T>.Default
+        comparer ?? Comparer<T>.Default.Compare
       );
     }
 
@@ -68,7 +73,7 @@ namespace Helpity
       {
         var a = elements[i];
         var b = newElementsSorted[j];
-        var comp = comparer.Compare(a, b);
+        var comp = comparer(a, b);
         if (comp == 0)
         {
           i++;
@@ -91,7 +96,7 @@ namespace Helpity
         elementsRemoved.Add(elements[i]);
         i++;
       }
-      while (j < elements.Count())
+      while (j < newElementsSorted.Length)
       {
         elementsAdded.Add(newElementsSorted[j]);
         j++;
