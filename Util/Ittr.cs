@@ -34,6 +34,9 @@ namespace Helpity
       }
     }
 
+    public static IEnumerable<(int, int)> Span2(int start, int end) =>
+      Span2(start, end, start, end);
+
     public static IEnumerable<(int, int)> Span2(int start1, int end1, int start2, int end2)
     {
       for (int i = start1; i <= end1; i++)

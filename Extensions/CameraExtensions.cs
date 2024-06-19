@@ -12,5 +12,14 @@ namespace Helpity
 
       return bounds.Faces().Map(face => face.Map(matrix.MultiplyPoint));
     }
+
+    public static Vector3[] Vertices(this Camera camera)
+    {
+      var matrix = camera.cameraToWorldMatrix * camera.projectionMatrix.inverse;
+
+      var bounds = new Bounds(Vector3.zero, Vector3.one * 2f);
+
+      return bounds.Vertices().Map(matrix.MultiplyPoint);
+    }
   }
 }

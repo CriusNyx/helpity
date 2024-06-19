@@ -15,12 +15,12 @@ namespace Helpity
     /// <summary>
     /// /// Elements that were added.
     /// </summary>
-    public readonly IReadOnlyList<T> elementsAdded;
+    public readonly IReadOnlyList<T> added;
 
     /// <summary>
     /// Elements that were removed.
     /// </summary>
-    public readonly IReadOnlyList<T> elementsRemoved;
+    public readonly IReadOnlyList<T> removed;
 
     /// <summary>
     /// Comparison function.
@@ -29,14 +29,14 @@ namespace Helpity
 
     public DeltaList(
       IReadOnlyList<T> elements,
-      IReadOnlyList<T> elementsAdded,
-      IReadOnlyList<T> elementsRemoved,
+      IReadOnlyList<T> added,
+      IReadOnlyList<T> removed,
       Func<T, T, int> comparer
     )
     {
       this.elements = elements;
-      this.elementsAdded = elementsAdded;
-      this.elementsRemoved = elementsRemoved;
+      this.added = added;
+      this.removed = removed;
       this.comparer = comparer;
     }
 

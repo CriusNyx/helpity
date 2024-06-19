@@ -34,5 +34,11 @@ namespace Helpity
         (face) => face.Map(vertex => bounds.center + Vector3.Scale(halfSize, vertex))
       );
     }
+
+    public static (Vector3 min, Vector3 max) MinMax(this Bounds bounds)
+    {
+      var halfSize = bounds.size / 2f;
+      return (bounds.center - halfSize, bounds.center + halfSize);
+    }
   }
 }

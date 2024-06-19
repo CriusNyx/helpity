@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Helpity
 {
@@ -13,5 +14,7 @@ namespace Helpity
       }
       return tuple1.Item2.CompareTo(tuple2.Item2);
     }
+
+    public static Comparer<(int, int)> Tuple2Comparer => Comparer<(int, int)>.Create(Tuple2);
   }
 }

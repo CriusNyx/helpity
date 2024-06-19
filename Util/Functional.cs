@@ -45,5 +45,49 @@ namespace Helpity
     {
       return (arr.GetCirc(index, length, offset), arr.GetCirc(index + 1, length, offset));
     }
+
+    public static U Reduce<T, U>(this T[] array, Func<U, T, U> reducer, U initialValue)
+    {
+      var acc = initialValue;
+      foreach (var element in array)
+      {
+        acc = reducer(acc, element);
+      }
+      return acc;
+    }
+
+    public static T First<T>(this T[] arr, Func<T, bool> search)
+    {
+      foreach (var element in arr)
+      {
+        if (search(element))
+        {
+          return element;
+        }
+      }
+      return default;
+    }
+
+    public static U First<T, U>(this (T a, U b)[] arr, T key)
+    {
+      foreach (var (a, b) in arr)
+      {
+        if (Equals(a, key))
+        {
+          return b;
+        }
+      }
+      return default;
+    }
+
+    public static T[] FillArray<T>(this T value, int len)
+    {
+      T[] output = new T[len];
+      for (int i = 0; i < len; i++)
+      {
+        output[i] = value;
+      }
+      return output;
+    }
   }
 }
