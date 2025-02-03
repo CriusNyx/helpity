@@ -1,5 +1,7 @@
 using System;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace Helpity
@@ -20,11 +22,13 @@ namespace Helpity
       GUILayout.EndHorizontal();
     }
 
+#if UNITY_EDITOR
     public static void SceneGUI(Action content)
     {
       Handles.BeginGUI();
       content();
       Handles.EndGUI();
     }
+#endif
   }
 }

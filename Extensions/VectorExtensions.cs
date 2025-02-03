@@ -18,5 +18,15 @@ namespace Helpity
     {
       return (vec.x, vec.y, vec.z);
     }
+
+    public static Quaternion ToAxisRotation(this Vector3 vec)
+    {
+      return Quaternion.AngleAxis(vec.magnitude * Mathf.Rad2Deg, vec);
+    }
+
+    public static Vector3 ToBirdseye(this Vector2 input)
+    {
+      return new Vector3(input.x, 0, input.y);
+    }
   }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Helpity
@@ -15,58 +16,58 @@ namespace Helpity
       z = -1
     };
 
-    public readonly static Vector3 pmm = new Vector3
+    public static readonly Vector3 pmm = new Vector3
     {
       x = 1,
       y = -1,
       z = -1
     };
 
-    public readonly static Vector3 mpm = new Vector3()
+    public static readonly Vector3 mpm = new Vector3()
     {
       x = -1,
       y = 1,
       z = -1
     };
 
-    public readonly static Vector3 ppm = new Vector3()
+    public static readonly Vector3 ppm = new Vector3()
     {
       x = 1,
       y = 1,
       z = -1
     };
 
-    public readonly static Vector3 mmp = new Vector3()
+    public static readonly Vector3 mmp = new Vector3()
     {
       x = -1,
       y = -1,
       z = 1
     };
 
-    public readonly static Vector3 pmp = new Vector3()
+    public static readonly Vector3 pmp = new Vector3()
     {
       x = 1,
       y = -1,
       z = 1
     };
 
-    public readonly static Vector3 mpp = new Vector3()
+    public static readonly Vector3 mpp = new Vector3()
     {
       x = -1,
       y = 1,
       z = 1
     };
 
-    public readonly static Vector3 ppp = new Vector3()
+    public static readonly Vector3 ppp = new Vector3()
     {
       x = 1,
       y = 1,
       z = 1
     };
 
-    public readonly static Vector3[] vertices = new[] { mmm, pmm, mpm, ppm, mmp, pmp, mpp, ppp };
+    public static readonly Vector3[] vertices = new[] { mmm, pmm, mpm, ppm, mmp, pmp, mpp, ppp };
 
-    public readonly static (Vector3, Vector3)[] edges = new[]
+    public static readonly (Vector3, Vector3)[] edges = new[]
     {
       // Bottom Face
       (mmm, pmm),
@@ -85,20 +86,32 @@ namespace Helpity
       (ppm, ppp),
     };
 
-    public readonly static Vector3[][] faces = new[]
+    public static readonly Vector3[] leftFace = new[] { mmp, mpp, mpm, mmm };
+    public static readonly Vector3[] rightFace = new[] { pmm, ppm, ppp, pmp };
+    public static readonly Vector3[] downFace = new[] { mmp, mmm, pmm, pmp };
+    public static readonly Vector3[] upFace = new[] { mpm, mpp, ppp, ppm };
+    public static readonly Vector3[] backFace = new[] { mmm, mpm, ppm, pmm };
+    public static readonly Vector3[] forwardFace = new[] { pmp, ppp, mpp, mmp };
+
+    public static readonly Vector3[][] faces = new[]
     {
-      // Left
-      new[] { mmp, mpp, mpm, mmm },
-      // Right
-      new[] { pmm, ppm, ppp, pmp },
-      // Bottom
-      new[] { mmp, mmm, pmm, pmp },
-      // Top
-      new[] { mpm, mpp, ppp, ppm },
-      // Back
-      new[] { mmm, mpm, ppm, pmm },
-      // Front
-      new[] { pmp, ppp, mpp, mmp },
+      leftFace,
+      rightFace,
+      downFace,
+      upFace,
+      backFace,
+      forwardFace,
     };
+
+    public static readonly IReadOnlyDictionary<UnitVector, Vector3[]> directionToFace =
+      new Dictionary<UnitVector, Vector3[]>()
+      {
+        { UnitVector.l, leftFace },
+        { UnitVector.r, rightFace },
+        { UnitVector.d, downFace },
+        { UnitVector.u, upFace },
+        { UnitVector.b, backFace },
+        { UnitVector.f, forwardFace },
+      };
   }
 }
