@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Helpity
 {
@@ -22,5 +23,21 @@ namespace Helpity
 
     public static (T x, T y) Combine2<T>((T x, T y) a, (T x, T y) b, Func<T, T, T> combine) =>
       (combine(a.x, b.x), combine(a.y, b.y));
+
+    public static int PosMod(int x, int m)
+    {
+      return (x % m + m) % m;
+    }
+
+    /// <summary>
+    /// Moves a value towards 0
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="delta"></param>
+    /// <returns></returns>
+    public static float UpdateLockout(float value, float delta)
+    {
+      return Mathf.MoveTowards(value, 0, delta);
+    }
   }
 }

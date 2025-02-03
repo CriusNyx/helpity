@@ -62,5 +62,29 @@ namespace Helpity
         DrawCross(matrix.MultiplyPoint(vert), 1f, _color);
       }
     }
+
+    public static void DrawFace(Vector3[] vertices, Color? color = null)
+    {
+      for (int i = 0; i < vertices.Length; i++)
+      {
+        var j = (i + 1) % vertices.Length;
+        Debug.DrawLine(vertices[i], vertices[j], color ?? Color.white);
+      }
+    }
+
+    public static void DrawBox(
+      Vector3 position,
+      Vector3? size = null,
+      Quaternion? rotation = null,
+      Color? color = null
+    )
+    {
+      var rot = rotation ?? Quaternion.identity;
+      var s = size ?? Vector3.one;
+      foreach (var face in UnitBox.faces)
+      {
+        DrawFace(face.Map(x => rot * Vector3.Scale(s, x * 0.5f) + position), color);
+      }
+    }
   }
 }
